@@ -2,6 +2,12 @@
 node-01 ansible_host=172.31.24.227
 node-02 ansible_host=172.31.30.242
 
+[proxyservers]
+node-02 ansible_host=172.31.30.242
+
+[utilityservers]
+node-02 ansible_host=172.31.30.242
+
 [all:vars]
 ansible_user=ubuntu
 ansible_ssh_private_key_file=/home/ubuntu/.ssh/id_ed25519

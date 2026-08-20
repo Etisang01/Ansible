@@ -1,0 +1,43 @@
+---
+- name: Install Apache on webservers
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Ensure Apache is running
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: Copy custom website to Apache document root
+      ansible.builtin.copy:
+        src: ../files/default_site.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+
+- name: Install htop on all nodes
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install htop
+      ansible.builtin.apt:
+        name: htop
+        state: present
